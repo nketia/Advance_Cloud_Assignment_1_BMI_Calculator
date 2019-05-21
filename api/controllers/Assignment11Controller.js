@@ -27,11 +27,6 @@ module.exports = {
 		
 	}
 
-	//post: function (req, res) {
-	//	return res.iDWeight/res.iDHeight
-
-	//}
- 
+	 
 };
 
-//Using Ajax, make a request to calculateBMI function passing the wight and height. calculateBMI performs the operation and returns a json response. once the response is returned to your ajax method, display the response in your view

@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+<html>
+<head>
+ <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+ 
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+body {
+  background: #555;
+}
+
+.content {
+  max-width: 500px;
+  margin: auto;
+  background: white;
+  padding: 10px;
+}
+
+h4 {
+	color:white;
+}
+
+h5{
+	color:white;
+}
+</style>
+
+<script>
+$(document).ready(function(){
+  $("button").click(function(){
+  	$("#calBMI").empty()
+  	var form_weight=$("#inputweight").val();
+  	var form_height=$("#inputheight").val();
+  	if (form_weight=='' && form_height=='')
+  	{
+  		alert ("You need to populate the form");
+  	}
+
+  	else if (form_weight=='' && form_height!=='')
+  	{
+  		alert ("You have not provided the Weight");
+  	}
+
+  	else if (form_height=='' && form_weight!=='')
+  	{
+  		alert ("You have not provided the Height");
+  	}
+
+  	else if (form_weight<1 && form_height<0.5 )
+  	{
+  		alert ("No person is known to weigh less 1kg and shorter than 0.5meters");
+  	}
+
+  	else if (form_weight<1 && form_height>=0.5 )
+  	{
+  		alert ("No person is known to weigh less 1kg");
+  	}
+
+  	else if (form_weight>=1 && form_height<0.5 )
+  	{
+  		alert ("No person is known to be shorter than 0.5 meters");
+  	}
+
+  	else if (form_weight>635 && form_height>2.72 )
+  	{
+  		alert ("No person is known to be weightier than 635Kg and taller than 2.72 meters");
+  	}
+
+  	else if (form_weight>635 && form_height<=2.72 )
+  	{
+  		alert ("No person is known to be weightier than 635Kg");
+  	}
+
+  	else if (form_weight<=635 && form_height>2.72 )
+  	{
+  		alert ("No person is known to be taller than 2.72 meters");
+  	}
+
+  	else
+
+    $.post("http://localhost:1337/Assignment11/calculateBMI_805",
+    {
+      submitted_weight: form_weight,
+      submitted_height: form_height
+    },
+    function(data,status){
+    	$("#calBMI").append("Your BMI is: " + data['bmi']+" !");
+    	$("#dataform")[0].reset();
+      
+    });
+  });
+});
+</script>
+</head>
+<body>
+
+
+
+<h4 class="display-5" style="text-align: center"> Cloud Computing Assignment 1 </h2>
+<h5 style="text-align: center">Body Mass Index (BMI) Calculator</h3>
+
+<div class="content" style="width: 300px">
+<p></p>
+
+
+
+			<form id="dataform">
+				
+				<p></p>
+					<div class="form-group">
+						<label for="iDWeight">Enter Weight (kg):</label>
+						<input type="number"  class="form-control" name="inputweight"  id="inputweight"  max="800" min="1">
+					</div>
+					<div class="form-group">
+					    <label for="iDHeight">Enter Height (m):</label>
+					    <input type="number" class="form-control" name="inputheight" id="inputheight"  max="3" min="0.5">
+					</div>
+					  	<button type="button" class="btn btn-primary">Get BMI</button>	
+			</form>
+			
+
+<p></p>
+<div> <p id="calBMI"></p>
+		</div>
+</div>
+
+
+
+</body>
+</html>
